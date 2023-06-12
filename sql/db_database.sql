@@ -1,4 +1,4 @@
-﻿#EXECUTE THIS FIRST, THEN NEXT SQL: 'db_drops.sql'
+SET SQL_SAFE_UPDATES = 0;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -10435,7 +10435,7 @@ INSERT IGNORE INTO `temp_data` (`dropperid`, `itemid`, `minimum_quantity`, `maxi
 (3230104, 4031209, 1, 1, 3072, 500000),
 (3230306, 4031159, 1, 1, 2074, 500000),
 (9500400, 4031224, 1, 1, 3607, 1000000),
-(9500400, 4031223, 1, 1, 3608, 1000000),    # thanks Lame for noticing Hongbu's gourd unavailable
+(9500400, 4031223, 1, 1, 3608, 1000000),
 (9420003, 4031400, 1, 1, 8761, 1000000),
 (9420001, 4031401, 1, 1, 8761, 1000000),
 (9300097, 4031472, 1, 1, 6301, 100000),
@@ -13040,7 +13040,6 @@ CREATE TABLE IF NOT EXISTS `makerrewarddata` (
   PRIMARY KEY (`itemid`,`rewardid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-# updated with the MapleSkillMakerFetcher feature
 INSERT IGNORE INTO `makercreatedata` (`id`, `itemid`, `req_level`, `req_maker_level`, `req_meso`, `req_item`, `req_equip`, `catalyst`, `quantity`, `tuc`) VALUES
   (0, 4250000, 45, 1, 110000, 0, 0, 0, 1, 0),
   (0, 4250100, 45, 1, 110000, 0, 0, 0, 1, 0),
@@ -15905,7 +15904,6 @@ INSERT IGNORE INTO `makerrewarddata` (`itemid`, `rewardid`, `quantity`, `prob`) 
   (4251402, 4251402, 1, 1),
   (4251402, 4251401, 9, 4);
 
-# generated with the MapleSkillMakerReagentIndexer feature
 
 CREATE TABLE IF NOT EXISTS `makerreagentdata` (
   `itemid` int(11) NOT NULL,
@@ -16475,7 +16473,7 @@ CREATE TABLE IF NOT EXISTS `petignores` (
   `petid` int(11) unsigned NOT NULL ,
   `itemid` int(10) unsigned NOT NULL ,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_petignorepetid` FOREIGN KEY (`petid`) REFERENCES `pets` (`petid`) ON DELETE CASCADE    # thanks Optimist for noticing queries over petid taking too long, shavit for pointing out an improvement using foreign key
+  CONSTRAINT `fk_petignorepetid` FOREIGN KEY (`petid`) REFERENCES `pets` (`petid`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `playerdiseases` (
@@ -16586,7 +16584,6 @@ CREATE TABLE IF NOT EXISTS `queststatus` (
   PRIMARY KEY (`queststatusid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-# quickslot table, by Shavit
 CREATE TABLE `quickslotkeymapped` (
   `accountid` INT NOT NULL,
   `keymap` BIGINT NOT NULL DEFAULT 0,
@@ -17439,7 +17436,7 @@ CREATE TABLE IF NOT EXISTS `reports` (
   `victimid` int(11) NOT NULL,
   `reason` tinyint(4) NOT NULL,
   `chatlog` text NOT NULL,
-  `description` text NOT NULL,  # correct field name, thanks resinate
+  `description` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -20867,7 +20864,7 @@ INSERT INTO `shopitems` (`shopitemid`, `shopid`, `itemid`, `price`, `pitch`, `po
 (6531, 1337, 2040711, 1, 0, 62),
 (6532, 1337, 2340000, 1, 0, 63),
 (20020, 1337, 1082149, 1, 0, 64),
-(20255, 1337, 2044503, 1, 0, 86),	# 20255~20273: thanks to ozanrijen
+(20255, 1337, 2044503, 1, 0, 86),
 (20256, 1337, 2044703, 1, 0, 87),
 (20257, 1337, 2044603, 1, 0, 88),
 (20258, 1337, 2043303, 1, 0, 89),
@@ -21493,7 +21490,7 @@ ALTER TABLE `family_character`
   ADD CONSTRAINT `family_character_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `characters` (`id`) ON DELETE CASCADE;
 
 ALTER TABLE `skills`
-  ADD CONSTRAINT `skills_chrid_fk` FOREIGN KEY (`characterid`) REFERENCES `characters` (`id`) ON DELETE CASCADE;	# thanks Shavit
+  ADD CONSTRAINT `skills_chrid_fk` FOREIGN KEY (`characterid`) REFERENCES `characters` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

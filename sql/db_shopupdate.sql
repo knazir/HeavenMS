@@ -1,9 +1,5 @@
-#THIS SQL IS OPTIONAL, TO BE USED AFTER 'db_drops.sql'
-#THIS REQUIRES PROVIDED WZ FILES
-
 USE `heavenms`;
 
-# Scroll shop at Asia, chair shop at Kino Konoko, potion shop at T-1337
 INSERT INTO `shops` (`shopid`,`npcid`) VALUES
 (2082014,2082014),
 (9110002,9110002),
@@ -131,7 +127,6 @@ INSERT IGNORE INTO `shopitems` (`shopid`, `itemid`, `price`, `pitch`, `position`
 (9201101, 2012008, 4200000, 0, 164),
 (9201101, 2022251, 3800000, 0, 168);
 
-# adding antibanish scrolls
 INSERT IGNORE INTO `shopitems` (`shopid`, `itemid`, `price`, `pitch`, `position`) VALUES
 (1001100, 2030100, 450, 0, 130),
 (1011100, 2030100, 450, 0, 142),
@@ -338,7 +333,6 @@ INSERT INTO `shopitems` ( `shopid`, `itemid`, `price`, `pitch`, `position`) VALU
  (1301000, 2000015, 160, 0, 168),
  (1301000, 2000000, 50, 0, 172);
 
-# adding missing pirate items at Singapore npc's
 INSERT INTO `shopitems` ( `shopid`, `itemid`, `price`, `pitch`, `position`) VALUES
  (9270019, 1492006, 160000, 0, 80),
  (9270019, 1492005, 100000, 0, 84),

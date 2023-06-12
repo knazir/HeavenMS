@@ -1,10 +1,6 @@
-#THIS SQL MUST BE USED AFTER 'db_database.sql'
-#NEXT SQL 'db_shopupdate.sql' IS OPTIONAL
-
 USE `heavenms`;
 
   INSERT IGNORE INTO temp_data (`dropperid`, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance`) VALUES
-  #-- copy+paste inside here as many drop data as possible from the spider (drop generator) files --
 (5100004, 2383034, 1, 1, 0, 10000),
 (2100108, 2381030, 1, 1, 0, 10000),
 (3230300, 2382021, 1, 1, 0, 10000),
@@ -17212,7 +17208,7 @@ USE `heavenms`;
 (9400014, 2040719, 1, 4, 0, 10000), 
 (9400014, 1102030, 1, 1, 0, 40000), 
 (9400014, 1032027, 1, 1, 0, 40000), 
-(9400014, 1402037, 1, 1, 0, 40000), # thanks Feras & Kitty for noticing issues with Stonetooth Sword layout
+(9400014, 1402037, 1, 1, 0, 40000),
 (9400014, 1372011, 1, 1, 0, 40000), 
 (8200008, 4000453, 1, 1, 0, 200000),
 (8200008, 4000459, 1, 1, 0, 200000), 
@@ -19205,7 +19201,6 @@ USE `heavenms`;
 (4300016,0,120,140,0,400000),
 (4300017,0,540,800,0,400000);
 
-  # delete/normalize item drops from Horntail
   DELETE FROM temp_data WHERE dropperid=8810018;
   INSERT IGNORE INTO temp_data (`dropperid`, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance`) VALUES
 (8810018,0,40000,50000,0,400000),
@@ -20304,9 +20299,7 @@ USE `heavenms`;
 (2220000, 1322001, 1, 1, 0, 8000),
 (9400551, 4031447, 1, 1, 0, 999999);
 
-# (dropperid, itemid, minqty, maxqty, questid, chance)
 
-  # add more skill/mastery books
   INSERT IGNORE INTO temp_data (`dropperid`, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance`) VALUES
 (8150000, 2280013, 1, 1, 0, 40000),
 (8200005, 2280014, 1, 1, 0, 1000),
@@ -20461,10 +20454,8 @@ USE `heavenms`;
 (8220015, 2280005, 1, 1, 0, 40000),
 (8220015, 2280006, 1, 1, 0, 40000);
 
-  # improve drop rates for skill/mastery books
   UPDATE IGNORE temp_data SET chance=1000 WHERE itemid >= 2280000 and itemid < 2300000 and chance < 1000;
 
-  # make some mobs drop unusual accessory scrolls
   INSERT IGNORE INTO temp_data (`dropperid`, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance`) VALUES
 (6090003, 2040103, 1, 1, 0, 3000),
 (6090003, 2040209, 1, 1, 0, 3000),
@@ -20496,15 +20487,11 @@ USE `heavenms`;
 (6230500, 2048013, 1, 1, 0, 750),
 (7130601, 2048013, 1, 1, 0, 750);
 
-  # delete all inexistent itemids
   DELETE FROM temp_data WHERE itemid=2290109;
 
-  # delete item drops from other mobs named Freezer
   DELETE FROM temp_data WHERE dropperid=9300090;
   DELETE FROM temp_data WHERE dropperid=9420501;
 
-  -- missing content for Bob found thanks to drmdsr & Thora
-  # normalize item drops for Bob the Snail
   INSERT INTO temp_data (`dropperid`, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance`)
   SELECT  9400551, temp_data.itemid, temp_data.minimum_quantity, temp_data.maximum_quantity, temp_data.questid, LEAST(temp_data.chance * 80, 999999)
   FROM    temp_data
@@ -20513,7 +20500,6 @@ USE `heavenms`;
   DELETE FROM temp_data WHERE dropperid=9400551 AND itemid=4000019;
   UPDATE IGNORE temp_data SET minimum_quantity=1000, maximum_quantity=5000 WHERE dropperid=9400551 AND itemid=0;
 
-  # normalize item drops for left-side Pianus
   DELETE FROM temp_data WHERE dropperid=8520000;
 
   INSERT INTO temp_data (`dropperid`, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance`)
@@ -20521,7 +20507,6 @@ USE `heavenms`;
   FROM    temp_data
   WHERE   temp_data.dropperid = 8510000;
 
-  # delete/normalize item drops from clones of Pink Bean
   DELETE FROM temp_data WHERE dropperid=8820000;
   DELETE FROM temp_data WHERE dropperid>=8820010 AND dropperid<=8820014;
 
@@ -20535,7 +20520,6 @@ USE `heavenms`;
   FROM    temp_data
   WHERE   temp_data.dropperid = 5110300;
 
-  # reinsert other Freezer's data
   INSERT IGNORE INTO temp_data (`dropperid`, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance`) VALUES
 (9420501, 0, 92, 138, 0, 400000),
 (9420501, 4000372, 1, 1, 0, 300000),
@@ -20565,7 +20549,6 @@ USE `heavenms`;
 (9420501, 1492005, 1, 1, 0, 2000),
 (8820001, 2388043, 1, 1, 0, 24000);
 
-  # zhelms, pink bean customs
   DELETE FROM temp_data WHERE itemid=1002357;
   INSERT IGNORE INTO temp_data (`dropperid`, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance`) VALUES
 (8800002, 1002357, 1, 2, 0, 300000),
@@ -20574,16 +20557,13 @@ USE `heavenms`;
 (8820001, 1002971, 3, 5, 0, 80000),
 (8820001, 1052202, 3, 5, 0, 80000);
 
-  # delete item drops from bosses in inactive form
   DELETE FROM temp_data WHERE dropperid=4220001;
   DELETE FROM temp_data WHERE dropperid=5220001;
 
-  # delete item drops from summoned mobs
   DELETE FROM temp_data WHERE dropperid=9500100;
   DELETE FROM temp_data WHERE dropperid=9300103;
   DELETE FROM temp_data WHERE dropperid=9300104;
 
-  # delete item drops from Dojo summoned mobs
   DELETE FROM temp_data WHERE dropperid>=9300217 AND dropperid<=9300270;
 
   UPDATE IGNORE temp_data SET chance=700 WHERE itemid=1302056;
@@ -20591,7 +20571,6 @@ USE `heavenms`;
   UPDATE IGNORE temp_data SET dropperid=9000002 WHERE dropperid=9000000;
   UPDATE IGNORE temp_data SET chance=600000 WHERE itemid=4000058;
 
-  # update USE drops that were supposed to be ETC
   INSERT IGNORE INTO temp_data (dropperid, itemid, minimum_quantity, maximum_quantity, questid, chance)
     SELECT dropperid, 4001006, 1, 1, 0, 10000
     FROM   temp_data
@@ -20602,7 +20581,6 @@ USE `heavenms`;
     FROM   temp_data
     WHERE  itemid = 2011000;  #Poisonous Mushroom
 
-  # add Giant Cake anniversary-themed drops
   INSERT IGNORE INTO temp_data (`dropperid`, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance`) VALUES
 (9400606, 1012098, 1, 1, 0, 120000),
 (9400606, 1012101, 1, 1, 0, 120000),
@@ -20768,8 +20746,6 @@ USE `heavenms`;
 DELETE FROM temp_data WHERE dropperid >= 9300127 AND dropperid <= 9300136;
 DELETE FROM temp_data WHERE dropperid >= 9300315 AND dropperid <= 9300324;
 
-# add CPQ items, CPQ specific items found thanks to Dragohe4rt
-# thanks Vcoc for pointing out inexistent itemids among those listed here
   INSERT IGNORE INTO temp_data (`dropperid`, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance`) VALUES
 (9300127, 2022157, 1, 1, 0, 200000),
 (9300127, 2022158, 1, 1, 0, 200000),
@@ -21092,7 +21068,6 @@ DELETE FROM temp_data WHERE dropperid >= 9300315 AND dropperid <= 9300324;
 (9300324, 2022178, 1, 1, 0, 200000),
 (9300324, 4001129, 1, 1, 0, 12987);
 
-# add AriantPQ items, AriantPQ specific items found thanks to Dragohe4rt
   INSERT IGNORE INTO temp_data (`dropperid`, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance`) VALUES
 (9300157, 2100067, 1, 1, 0, 100000),
 (9300157, 2022266, 1, 1, 0, 200000),
@@ -21153,24 +21128,18 @@ DELETE FROM temp_data WHERE dropperid >= 9300315 AND dropperid <= 9300324;
   UPDATE drop_data SET questid=6191 WHERE itemid=4031477;
   UPDATE drop_data SET questid=6190 WHERE itemid=4001111;
 
-  # two items named "Sparta": remove the entries where lv100 Sparta is being dropped by low-level mobs.
   UPDATE IGNORE drop_data SET itemid=1402011 WHERE itemid=1302056 AND dropperid < 8000000;
   DELETE FROM drop_data WHERE itemid=1302056 AND dropperid < 8000000;
 
-  # patch Masteria drops being very rare
   UPDATE drop_data SET chance=200000 WHERE itemid>=4032003 AND itemid<=4032033 AND chance=10000;
 
-  # remove belts dropping from mobs
   DELETE FROM drop_data WHERE itemid>=1132000 AND itemid<=1132004;
 
-  # remove Liar Tree Sap (unusable)
   DELETE FROM drop_data WHERE itemid=2049101;
 
-  # remove items being dropped from mobs in HPQ
   DELETE FROM drop_data WHERE dropperid >= 9300061 AND dropperid <= 9300064;
   DELETE FROM drop_data WHERE dropperid >= 9300081 AND dropperid <= 9300083;
 
-  # remove items being dropped from summoned mobs in PQs
   DELETE FROM drop_data WHERE dropperid >= 9300015 AND dropperid <= 9300017;
   DELETE FROM drop_data WHERE dropperid >= 9300054 AND dropperid <= 9300056;
   DELETE FROM drop_data WHERE dropperid >= 9300143 AND dropperid <= 9300144;
@@ -21179,20 +21148,15 @@ DELETE FROM temp_data WHERE dropperid >= 9300315 AND dropperid <= 9300324;
   DELETE FROM drop_data WHERE dropperid = 9500100;
   DELETE FROM drop_data where dropperid >= 9300141 AND dropperid <= 9300154 AND (itemid < 4001130 OR itemid >= 4001136);
 
-  # remove drop data from mobs which respawns as other mobs
   DELETE FROM drop_data WHERE dropperid = 8190001;
 
-  # remove key of dimension dropping outside PQ
   DELETE FROM drop_data WHERE itemid=4001023 AND dropperid!=9300012;
 
-  # make Sword Earrings not drop by normal means, just like Shield Earrings
   DELETE FROM drop_data WHERE itemid=1032030;
 
-  # remove every non-card drop from bosses out of their natural habitat
   DELETE FROM drop_data WHERE dropperid >= 9300184 AND dropperid < 9300215 AND (itemid < 2380000 OR itemid >= 2390000);
   DELETE FROM drop_data WHERE dropperid >= 9500337 AND dropperid < 9500364 AND (itemid < 2380000 OR itemid >= 2390000);
 
-  # reinsert loot for Dark Nependeath
   DELETE FROM drop_data WHERE dropperid=4130104;
   INSERT IGNORE INTO drop_data (`dropperid`, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance`) VALUES
 (4130104, 4000062, 1, 1, 0, 600000),
@@ -21227,7 +21191,6 @@ DELETE FROM temp_data WHERE dropperid >= 9300315 AND dropperid <= 9300324;
 (4130104, 1040096, 1, 1, 0, 700),
 (4130104, 1060085, 1, 1, 0, 700);
 
-  # reinsert dojo loot
   INSERT IGNORE INTO drop_data (`dropperid`, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance`) VALUES
 (9300184, 2022359, 1, 1, 0, 200000),
 (9300184, 2022360, 1, 1, 0, 200000),
@@ -21886,7 +21849,6 @@ DELETE FROM temp_data WHERE dropperid >= 9300315 AND dropperid <= 9300324;
  INSERT IGNORE INTO drop_data (`dropperid`, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance`)
  SELECT 3230301, `itemid`, `minimum_quantity`, `maximum_quantity`, `questid`, `chance` FROM drop_data WHERE dropperid = 3230300;
 
-  # update quest reactor items
   UPDATE reactordrops SET questid=2086 WHERE itemid=4031165;
   UPDATE reactordrops SET questid=3407 WHERE itemid=4031141;
   UPDATE reactordrops SET questid=3407 WHERE itemid=4031142;
@@ -21900,7 +21862,6 @@ DELETE FROM temp_data WHERE dropperid >= 9300315 AND dropperid <= 9300324;
   UPDATE reactordrops SET questid=1008 WHERE itemid=4031161;
   UPDATE reactordrops SET questid=1008 WHERE itemid=4031162;
 
-  # add Amoria Wedding reward boxes
   INSERT INTO `reactordrops` (`reactorid`, `itemid`, `chance`, `questid`) VALUES
 (6802000, 4031423, 5, -1),
 (6802000, 4031424, 10, -1),
@@ -21975,7 +21936,6 @@ DELETE FROM temp_data WHERE dropperid >= 9300315 AND dropperid <= 9300324;
 (6802001, 2048012, 10, -1),
 (6802001, 2040502, 10, -1);
 
-  # update Amoria PQ reward boxes
   DELETE FROM `reactordrops` WHERE `reactorid` >= 6702003 AND `reactorid` <= 6702012;
   INSERT INTO `reactordrops` (`reactorid`, `itemid`, `chance`, `questid`) VALUES
 (6702003, 1032043, 25, -1),
@@ -22534,7 +22494,6 @@ DELETE FROM temp_data WHERE dropperid >= 9300315 AND dropperid <= 9300324;
     (6742014, 1082223, 50, -1),
     (6742014, 1132009, 50, -1);
 
-  # adding wish tickets on APQ boxes
   INSERT INTO `reactordrops` (`reactorid`, `itemid`, `chance`, `questid`) VALUES
     (6702003, 4031543, 1, -1),
     (6702003, 4031544, 2, -1),
@@ -22557,7 +22516,6 @@ DELETE FROM temp_data WHERE dropperid >= 9300315 AND dropperid <= 9300324;
     (6702012, 4031543, 2, -1),
     (6702012, 4031544, 1, -1);
 
-  # adding themed buffs into Zakum Prequest boxes
   INSERT INTO `reactordrops` (`reactorid`, `itemid`, `chance`, `questid`) VALUES
     (2112000, 2022439, 43, -1),
     (2112001, 2022439, 43, -1),
@@ -22585,7 +22543,6 @@ DELETE FROM temp_data WHERE dropperid >= 9300315 AND dropperid <= 9300324;
     (2112015, 2022441, 15, -1);
 
   -- thanks donny (Croosade forums) for showing a lack on GPQ rewards
-  # adding more rewards into GPQ bonus boxes
   INSERT INTO `reactordrops` (`reactorid`, `itemid`, `chance`, `questid`) VALUES
     (9202012, 1002379, 45, -1),
     (9202012, 1002383, 45, -1),
@@ -22612,7 +22569,6 @@ DELETE FROM temp_data WHERE dropperid >= 9300315 AND dropperid <= 9300324;
     (9202012, 1372011, 25, -1),
     (9202012, 1442046, 25, -1);
 
-  # updates info for all cards on monster book
   DROP TABLE `monstercarddata`;
   CREATE TABLE IF NOT EXISTS `monstercarddata` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
